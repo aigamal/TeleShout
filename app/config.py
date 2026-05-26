@@ -1,7 +1,6 @@
 from __future__ import annotations
 from pydantic_settings import BaseSettings
 from typing import List
-import os
 
 
 class Settings(BaseSettings):
@@ -11,7 +10,7 @@ class Settings(BaseSettings):
 
     database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/telegram_notifier"
 
-    redis_url: str = "redis://localhost:6379/0"
+    redis_url: str = ""
 
     secret_key: str = "change-me-in-production"
     encryption_key: str = "change-me-in-production-must-be-32-bytes-long-"
