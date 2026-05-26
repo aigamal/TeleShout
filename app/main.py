@@ -1,5 +1,6 @@
 from __future__ import annotations
 import logging
+import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
@@ -59,7 +60,7 @@ app = FastAPI(
         "url": "https://www.apache.org/licenses/LICENSE-2.0",
     },
     servers=[
-        {"url": "http://localhost:8000", "description": "Local development"},
+        {"url": os.environ.get("RENDER_EXTERNAL_URL", "http://localhost:8000"), "description": "API base URL"},
     ],
     openapi_tags=tags_metadata,
 )

@@ -1,6 +1,6 @@
 # TeleShout
 
-Multi-tenant REST API for sending Telegram notifications programmatically. Built with FastAPI, PostgreSQL, and Redis — designed as a micro SaaS.
+Multi-tenant REST API for sending Telegram notifications programmatically. Built with FastAPI and PostgreSQL — designed as a micro SaaS. Redis is optional.
 
 ## Quick Start
 
@@ -117,14 +117,39 @@ Two auth modes:
 
 - **FastAPI** — async Python web framework
 - **PostgreSQL 16** — primary database
-- **Redis 7** — rate limiting
+- **Redis 7** — optional rate limiting (falls back to in-memory)
 - **SQLAlchemy 2.0** — async ORM
 - **Alembic** — database migrations
 - **Docker** — containerized deployment
 
 ## Deployment
 
-Ready for Railway / Render. Set environment variables from `.env.example`.
+### Deploy to Render (one-click)
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/aigamal/TeleShout)
+
+The included [`render.yaml`](render.yaml) defines the service and provisions a PostgreSQL database automatically. Redis is optional — TeleShout falls back to in-memory rate limiting when Redis is not available.
+
+After deploy, Render sets `RENDER_EXTERNAL_URL` automatically so your OpenAPI docs point to the correct URL.
+
+### Docker (self-hosted)
+
+```bash
+docker compose up -d
+open http://localhost:8000/docs
+```
+
+To include Redis:
+```bash
+docker compose --profile with-redis up -d
+```
+
+### Manual
+
+```bash
+pip install -r requirements.txt
+uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+```
 
 ## License
 
